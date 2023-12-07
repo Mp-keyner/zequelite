@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const usuario_1 = __importDefault(require("../routes/usuario"));
+const Publication_1 = __importDefault(require("../routes/Publication"));
 const morgan_1 = __importDefault(require("morgan"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
@@ -13,6 +14,7 @@ class Server {
     constructor() {
         this.apiPaths = {
             usuarios: "/api/usuarios",
+            publication: "/api/publication",
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || "8000";
@@ -39,6 +41,7 @@ class Server {
     }
     routes() {
         this.app.use(this.apiPaths.usuarios, usuario_1.default);
+        this.app.use(this.apiPaths.publication, Publication_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

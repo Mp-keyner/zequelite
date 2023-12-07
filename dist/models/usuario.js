@@ -9,6 +9,8 @@ const Usuario = connection_1.default.define("Usuario", {
     id: {
         type: sequelize_1.DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
+        allowNull: false,
     },
     nombre: {
         type: sequelize_1.DataTypes.STRING,

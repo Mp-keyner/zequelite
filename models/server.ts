@@ -1,5 +1,6 @@
 import express, { Application } from "express";
 import userRoutes from "../routes/usuario";
+import publicationRoutes from "../routes/Publication";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -10,6 +11,7 @@ class Server {
   private port: string;
   private apiPaths = {
     usuarios: "/api/usuarios",
+    publication: "/api/publication",
   };
   constructor() {
     this.app = express();
@@ -39,6 +41,7 @@ class Server {
 
   routes() {
     this.app.use(this.apiPaths.usuarios, userRoutes);
+    this.app.use(this.apiPaths.publication, publicationRoutes);
   }
 
   listen() {
