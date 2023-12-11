@@ -19,7 +19,7 @@ class Server {
             comment: "/api/comment",
         };
         this.app = (0, express_1.default)();
-        this.port = process.env.PORT || "8000";
+        this.port = process.env.PORT || "4000";
         this.app.use((0, morgan_1.default)("dev"));
         this.app.use(body_parser_1.default.json());
         this.app.use(body_parser_1.default.urlencoded());

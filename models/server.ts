@@ -17,7 +17,7 @@ class Server {
   };
   constructor() {
     this.app = express();
-    this.port = process.env.PORT || "8000";
+    this.port = process.env.PORT || "4000";
     this.app.use(morgan("dev"));
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded());
@@ -29,7 +29,7 @@ class Server {
 
   async dbConnection() {
     try {
-      await db.sync({alter: true});
+      await db.sync({ alter: true });
       console.log("Data Conecction successful");
     } catch (error: any) {
       throw new Error(error);
