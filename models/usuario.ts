@@ -5,9 +5,9 @@ const Usuario = db.define(
   "Usuario",
   {
     id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.INTEGER,  
       primaryKey: true,
-      autoIncrement: true,
+      autoIncrement: true, 
       allowNull: false,
     },
     nombre: {
@@ -17,10 +17,19 @@ const Usuario = db.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     estado: {
       type: DataTypes.BOOLEAN,
       defaultValue: 1,
+    },
+    imageUrl: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    tipo: {
+      type: DataTypes.ENUM('Psicologo', 'Anonimo'),
+      allowNull: false,
     },
   },
   {

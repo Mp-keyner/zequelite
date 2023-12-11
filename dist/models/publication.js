@@ -18,7 +18,7 @@ const Publication = connection_1.default.define("Publication", {
         allowNull: false,
     },
     publication: {
-        type: sequelize_1.DataTypes.STRING,
+        type: sequelize_1.DataTypes.STRING(1000),
         allowNull: false,
     },
     likes: {

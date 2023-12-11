@@ -1,22 +1,18 @@
 import { Router } from "express";
 import {
   deletePublication,
-  getComments,
   getPublication,
   getPublications,
-  postComment,
+  getPublicationsByTheme,
   postPublication,
   updatePublication,
 } from "../controllers/Publication";
 
 const router = Router();
 router.get("/", getPublications);
-router.get("/:id", getPublication);
+router.get("/:theme", getPublicationsByTheme);
+router.get("/id/:id", getPublication);
 router.post("/", postPublication);
-router.put("/:id", updatePublication);
-router.delete("/:id", deletePublication);
-
-router.get("/comments", getComments);
-router.post("/comments", postComment);
-
+router.put("/id/:id", updatePublication);
+router.delete("/id/:id", deletePublication);
 export default router;

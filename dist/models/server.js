@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const usuario_1 = __importDefault(require("../routes/usuario"));
 const Publication_1 = __importDefault(require("../routes/Publication"));
+const Comment_1 = __importDefault(require("../routes/Comment"));
 const morgan_1 = __importDefault(require("morgan"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
@@ -15,6 +16,7 @@ class Server {
         this.apiPaths = {
             usuarios: "/api/usuarios",
             publication: "/api/publication",
+            comment: "/api/comment",
         };
         this.app = (0, express_1.default)();
         this.port = process.env.PORT || "8000";
@@ -28,7 +30,7 @@ class Server {
     }
     async dbConnection() {
         try {
-            await connection_1.default.sync();
+            await connection_1.default.sync({ alter: true });
             console.log("Data Conecction successful");
         }
         catch (error) {
@@ -42,6 +44,7 @@ class Server {
     routes() {
         this.app.use(this.apiPaths.usuarios, usuario_1.default);
         this.app.use(this.apiPaths.publication, Publication_1.default);
+        this.app.use(this.apiPaths.comment, Comment_1.default);
     }
     listen() {
         this.app.listen(this.port, () => {

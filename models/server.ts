@@ -1,6 +1,7 @@
 import express, { Application } from "express";
 import userRoutes from "../routes/usuario";
 import publicationRoutes from "../routes/Publication";
+import commentRoutes from "../routes/Comment";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import cors from "cors";
@@ -12,6 +13,7 @@ class Server {
   private apiPaths = {
     usuarios: "/api/usuarios",
     publication: "/api/publication",
+    comment: "/api/comment",
   };
   constructor() {
     this.app = express();
@@ -27,7 +29,7 @@ class Server {
 
   async dbConnection() {
     try {
-      await db.sync();
+      await db.sync({alter: true});
       console.log("Data Conecction successful");
     } catch (error: any) {
       throw new Error(error);
@@ -42,6 +44,7 @@ class Server {
   routes() {
     this.app.use(this.apiPaths.usuarios, userRoutes);
     this.app.use(this.apiPaths.publication, publicationRoutes);
+    this.app.use(this.apiPaths.comment, commentRoutes);
   }
 
   listen() {

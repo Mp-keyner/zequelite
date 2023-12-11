@@ -19,10 +19,19 @@ const Usuario = connection_1.default.define("Usuario", {
     email: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
     estado: {
         type: sequelize_1.DataTypes.BOOLEAN,
         defaultValue: 1,
+    },
+    imageUrl: {
+        type: sequelize_1.DataTypes.STRING,
+        allowNull: false,
+    },
+    tipo: {
+        type: sequelize_1.DataTypes.ENUM('Psicologo', 'Anonimo'),
+        allowNull: false,
     },
 }, {
     timestamps: true,

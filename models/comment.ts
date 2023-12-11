@@ -23,10 +23,6 @@ const Comment = db.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
-    imageUrl: {
-      type: DataTypes.STRING,
-      allowNull: true,
-    },
   },
   {
     timestamps: true,

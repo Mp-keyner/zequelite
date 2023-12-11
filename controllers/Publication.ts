@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Publication from "../models/publication";
-import Comment from "../models/comment";
+import Comment from '../models/comment';
 import User from "../models/usuario";
 
 export const getPublications = async (req: Request, res: Response) => {
@@ -40,6 +40,24 @@ export const getPublication = async (req: Request, res: Response) => {
     });
   }
 };
+export const getPublicationsByTheme = async(req: Request, res: Response) => {
+  const { theme } = req.params;
+  const publication = await Publication.findAll({
+    where: {
+      theme: theme
+    },
+    include: [
+      {
+        model: User,
+      },
+      {
+        model: Comment,
+      },
+    ],
+   
+  });
+  res.json({publication});
+ }
 export const postPublication = async (req: Request, res: Response) => {
   const { body } = req;
   try {
@@ -54,15 +72,31 @@ export const postPublication = async (req: Request, res: Response) => {
   }
 };
 
-export const updatePublication = (req: Request, res: Response) => {
+export const updatePublication = async (req: Request, res: Response) => {
   const { body } = req;
   const { id } = req.params;
-  res.json({
-    msg: "Update_publicacion",
-    body,
-    id,
-  });
-};
+  try {
+    const [numberOfAffectedRows, affectedRows] = await Publication.update(
+      body,
+      {
+        where: { id },
+        returning: true,
+      }
+    );
+    res.json({
+      msg: "Publicación actualizada",
+      updatedPublication: affectedRows[0],
+      Publication
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Hable con el administrador de la base de datos",
+      error: error,
+    });
+  }
+ };
+ 
 export const deletePublication = (req: Request, res: Response) => {
   const { id } = req.params;
   res.json({
@@ -72,9 +106,25 @@ export const deletePublication = (req: Request, res: Response) => {
 };
 
 export const getComments = async (req: Request, res: Response) => {
-  // const comment = await Comment.findAll();
-  //res.json({ comment });
+  console.log('commente')
+  const comment = await Comment.findAll();
+  res.json({ comment });
 };
+
+export const getCommentsById= async(req: Request, res: Response) => {
+  const { id } = req.params;
+  const comment = await Comment.findAll({
+    where: {
+      publicationId: id
+    },
+    include: [
+      {
+        model: User,
+      },
+    ],
+  });
+  res.json({comment});
+ }
 
 export const postComment = async (req: Request, res: Response) => {
   const { body } = req;

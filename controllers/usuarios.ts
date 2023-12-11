@@ -42,8 +42,14 @@ export const postUsuario = async (req: Request, res: Response) => {
   try {
     const usuario = await Usuario.create(body);
     console.log(usuario.toJSON());
+    if (usuario.tipo === 'Anonimo') {
+      let randomNumber = Math.floor(Math.random() * 10) + 1;
+      randomNumber = String(randomNumber).padStart(2, '0');
+      usuario.imageUrl = `https://facelessapi.kiura.co/assets/avatars/Avatar-${randomNumber}.jpg`;
+      console.log(usuario.imageUrl)
+      await usuario.save();
+    }
     res.json({ usuario });
-    await usuario.save();
   } catch (error) {
     console.log(error);
     res.status(500).json({
@@ -51,7 +57,10 @@ export const postUsuario = async (req: Request, res: Response) => {
       error: error,
     });
   }
-};
+ };
+ 
+ 
+ 
 export const updateUsuario = (req: Request, res: Response) => {
   const { body } = req;
   const { id } = req.params;

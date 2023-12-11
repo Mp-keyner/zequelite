@@ -25,10 +25,6 @@ const Comment = connection_1.default.define("Comment", {
         type: sequelize_1.DataTypes.TEXT,
         allowNull: false,
     },
-    imageUrl: {
-        type: sequelize_1.DataTypes.STRING,
-        allowNull: true,
-    },
 }, {
     timestamps: true,
 });
