@@ -18,6 +18,9 @@ const getPublications = async (req, res) => {
                 model: usuario_1.default,
             },
         ],
+        order: [
+            ['createdAt', 'DESC'],
+        ],
     });
     res.json({ publication });
 };
@@ -34,6 +37,9 @@ const getPublication = async (req, res) => {
             {
                 model: usuario_1.default,
             },
+        ],
+        order: [
+            ['createdAt', 'DESC'],
         ],
     });
     if (publication) {
@@ -59,6 +65,9 @@ const getPublicationsByTheme = async (req, res) => {
             {
                 model: comment_1.default,
             },
+        ],
+        order: [
+            ['createdAt', 'DESC'],
         ],
     });
     res.json({ publication });
@@ -112,7 +121,11 @@ const deletePublication = (req, res) => {
 exports.deletePublication = deletePublication;
 const getComments = async (req, res) => {
     console.log('commente');
-    const comment = await comment_1.default.findAll();
+    const comment = await comment_1.default.findAll({
+        order: [
+            ['createdAt', 'DESC'],
+        ],
+    });
     res.json({ comment });
 };
 exports.getComments = getComments;

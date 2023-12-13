@@ -14,6 +14,9 @@ export const getPublications = async (req: Request, res: Response) => {
         model: User,
       },
     ],
+    order: [
+      ['createdAt', 'DESC'],
+    ],
   });
 
   res.json({ publication });
@@ -31,6 +34,9 @@ export const getPublication = async (req: Request, res: Response) => {
         model: User,
       },
     ],
+    order: [
+      ['createdAt', 'DESC'],
+    ],
   });
   if (publication) {
     res.json({ publication });
@@ -39,7 +45,8 @@ export const getPublication = async (req: Request, res: Response) => {
       msg: `No se encontro publicacion con id: ${id}`,
     });
   }
-};
+ };
+ 
 export const getPublicationsByTheme = async(req: Request, res: Response) => {
   const { theme } = req.params;
   const publication = await Publication.findAll({
@@ -54,7 +61,9 @@ export const getPublicationsByTheme = async(req: Request, res: Response) => {
         model: Comment,
       },
     ],
-   
+    order: [
+      ['createdAt', 'DESC'],
+    ],
   });
   res.json({publication});
  }
@@ -107,7 +116,11 @@ export const deletePublication = (req: Request, res: Response) => {
 
 export const getComments = async (req: Request, res: Response) => {
   console.log('commente')
-  const comment = await Comment.findAll();
+  const comment = await Comment.findAll({
+    order: [
+      ['createdAt', 'DESC'],
+    ],
+  });
   res.json({ comment });
 };
 
